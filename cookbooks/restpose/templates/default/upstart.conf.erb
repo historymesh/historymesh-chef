@@ -1,0 +1,12 @@
+description "Restpose search server"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+respawn limit 10 5
+
+# Need access to libmicrohttpd.so
+export LD_LIBRARY_PATH=/usr/local/lib
+
+exec sudo -u <%= @user %> /usr/local/bin/restpose -p <%= @port %> -d /var/lib/restpose 2>&1 | logger -p daemon.notice -t restpose
