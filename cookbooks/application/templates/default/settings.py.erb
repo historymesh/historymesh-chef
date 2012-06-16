@@ -1,19 +1,17 @@
-<% if @django_version >= 1.2 -%>
+from antler.configs.settings import *
+
 DATABASES = {
     'default': {
         'NAME': '<%= @database['database'] %>',
         'ENGINE': 'django.db.backends.<%= @database['adapter'] %>',
         'USER': '<%= @database['username'] %>',
         'PASSWORD': '<%= @database['password'] %>',
-        'HOST': '<%= @host %>',
+        'HOST': '<%= @db_master %>',
         'PORT': '<%= @database['port']  %>'
     }
 }
-<% else -%>
-DATABASE_ENGINE = '<%= @database['adapter'] %>'
-DATABASE_NAME = '<%= @database['database'] %>'
-DATABASE_USER = '<%= @database['username'] %>'
-DATABASE_PASSWORD = '<%= @database['password'] %>'
-DATABASE_HOST = '<%= @host %>'
-DATABASE_PORT = '<%= @database['port']  %>'
-<% end -%>
+
+RESTPOSE_CONFIG = {
+    'uri': 'http://127.0.0.1:<%= node['restpose']['port'] %>/',
+    'collection': 'antler',
+}
