@@ -1,0 +1,50 @@
+{
+  "id": "historymesh",
+  "server_roles": [
+    "historymesh"
+  ],
+  "type": {
+    "historymesh": [
+      "users",
+      "django",
+      "gunicorn"
+    ]
+  },
+  "repository": "git://github.com/historymesh/historymesh.git",
+  "revision": {
+    "_default": "master"
+  },
+  "force": {
+    "_default": true
+  },
+  "migrate": {
+    "_default": true
+  },
+  "databases": {
+    "_default": {
+      "encoding": "utf8",
+      "username": "antler",
+      "adapter": "postgresql_psycopg2",
+      "database": "antler_production"
+    }
+  },
+
+  "database_master_role": [
+    "historymesh_database_master"
+  ],
+
+  "deploy_to": "/home/historymesh",
+  "deploy_key": "",
+  "owner": "historymesh",
+  "group": "historymesh",
+  "packages": [
+    "git-core",
+    "python-imaging",
+    "python-psycopg2"
+  ],
+  "pips": {
+    "nose": ""
+  },
+  "requirements_file": "antler/requirements.txt",
+  "local_settings_file": "local_settings.py"
+}
