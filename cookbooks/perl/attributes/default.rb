@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: perl
-# Definition:: cpan_module
+# Attributes:: default
 #
 # Copyright 2009, Opscode, Inc.
 #
@@ -17,17 +17,19 @@
 # limitations under the License.
 #
 
-define :cpan_module, :force => nil do
-  execute "install-#{params[:name]}" do
-    if params[:force]
-      command "/usr/local/bin/cpanm --force #{params[:name]}"
-    else
-      command "/usr/local/bin/cpanm #{params[:name]}"
-    end
-    cwd "/root"
-    # Will create working dir on /root/.cpanm
-    environment "HOME" => "/root"
-    path [ "/usr/local/bin", "/usr/bin", "/bin" ]
-    not_if "perl -m#{params[:name]} -e ''"
+case node['platform']
+when "redhat","centos","scientific","amazon","oracle","fedora"
+  default['perl']['packages'] = %w{ perl perl-libwww-perl perl-CPAN }
+  case node['platform_version'].to_i
+  when 5
+    default['perl']['packages'] = %w{ perl perl-libwww-perl  }
+  when 6
+    default['perl']['packages'] = %w{ perl perl-libwww-perl perl-CPAN }
   end
+when "debian","ubuntu","mint"
+  default['perl']['packages'] = %w{ perl libperl-dev }
+when "arch"
+  default['perl']['packages'] = %w{ perl perl-libwww }
+else
+  default['perl']['packages'] = %w{ perl libperl-dev }
 end
