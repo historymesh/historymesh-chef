@@ -43,7 +43,8 @@
     "python-psycopg2"
   ],
   "pips": {
-    "nose": ""
+    "nose": "",
+    "python-memcached": ""
   },
   "requirements_file": "antler/requirements.txt",
   "local_settings_file": "local_settings.py"

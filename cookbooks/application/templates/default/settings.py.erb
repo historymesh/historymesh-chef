@@ -11,7 +11,16 @@ DATABASES = {
     }
 }
 
+# TODO: Unhardcode this to being on these same host :/
+
 RESTPOSE_CONFIG = {
     'uri': 'http://127.0.0.1:<%= node['restpose']['port'] %>/',
     'collection': 'antler',
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:<%= node['memcached']['port'] %>',
+    }
 }
