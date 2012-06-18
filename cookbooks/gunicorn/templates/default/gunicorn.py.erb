@@ -27,6 +27,13 @@ workers = <%= @worker_processes %>
 # Type of worker to use
 worker_class = "<%= @worker_class %>"
 
+# To get seemeless upgrades working from the deploy_revision style with symlinks
+def on_starting(server):
+    from os import environ
+    if environ.has_key('ROOT'):
+        server.START_CTX['cwd'] = environ['ROOT']
+
+
 <%- if @server_hooks[:when_ready] %>
 # What to do after the server starts
 def def_start_server(server):
